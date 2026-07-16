@@ -1,0 +1,102 @@
+{
+  "name": "lockin",
+  "version": "1.3.0",
+  "description": "LockIn - Gestor de Tarefas e Foco",
+  "main": "main.js",
+  "author": "Pedro Queiros",
+  "license": "MIT",
+  "homepage": "https://github.com/queirospedro/lockin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/queirospedro/lockin"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "electron .",
+    "start:opt": "electron . --js-flags=\"--expose-gc --gc-global --optimize-for-size\"",
+    "build": "electron-builder --win nsis",
+    "build:portable": "electron-builder --win portable",
+    "build:nsis": "electron-builder --win nsis",
+    "build:store": "electron-builder --win appx",
+    "build:linux": "electron-builder --linux AppImage",
+    "build:mac": "electron-builder --mac dmg"
+  },
+  "devDependencies": {
+    "electron": "^43.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.queirospedro.lockin",
+    "productName": "LockIn",
+    "asar": true,
+    "asarUnpack": [
+      "assets/**/*"
+    ],
+    "compression": "maximum",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/icon.ico",
+      "!**/*.md",
+      "!**/*.map",
+      "!**/*.bak",
+      "!**/test/**",
+      "!**/tests/**",
+      "!**/.github/**",
+      "!**/docs/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "LockIn-${version}.${ext}"
+    },
+    "appx": {
+      "applicationId": "LockIn",
+      "identityName": "28488PedroQueiros.LockIn",
+      "publisher": "CN=Pedro Queiros",
+      "publisherDisplayName": "Pedro Queiros",
+      "languages": ["pt-PT", "en-US"],
+      "setBuildNumber": true
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "icon": "assets/icon.svg",
+      "category": "Utility",
+      "artifactName": "LockIn-${version}.${ext}"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "assets/icon.ico",
+      "category": "public.app-category.productivity",
+      "artifactName": "LockIn-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LockIn",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "perMachine": false,
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "LockIn-Portable.exe"
+    }
+  },
+  "dependencies": {}
+}
